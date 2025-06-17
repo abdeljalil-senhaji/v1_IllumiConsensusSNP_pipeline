@@ -1,0 +1,9 @@
+rule generate_mpileup:
+    input:
+        sorted_bam="{prefix}/{sample}/{id}_sorted.bam"
+    output:
+        mpileup="{prefix}/{sample}/{id}.mpileup"
+    shell:
+        '''
+        samtools mpileup -A -Q 0 {input.sorted_bam} > {output.mpileup}
+        '''

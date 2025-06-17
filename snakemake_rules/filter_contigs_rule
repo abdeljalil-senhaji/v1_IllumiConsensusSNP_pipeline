@@ -1,0 +1,11 @@
+rule filter_contigs:
+    input:
+        "{prefix}/{sample}/{sample}_contigs.fasta"
+    output:
+        "{prefix}/{sample}/{sample}_contigs_200.fasta"
+    log:
+        "{prefix}/{sample}/logs/{sample}_filter.log"
+    params:
+        seqkit_options = config["filter_contigs"]["OPTIONS"]
+    shell:
+        "seqkit seq {params.seqkit_options} {input} -o {output}  2>&1 | tee -a {log}"

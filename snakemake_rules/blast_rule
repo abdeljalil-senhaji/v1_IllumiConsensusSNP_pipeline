@@ -1,0 +1,13 @@
+rule blast:
+    input:
+        "{prefix}/{sample}/{sample}_contigs_200.fasta"
+    output:
+        "{prefix}/{sample}/{sample}_blast.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_blast.log"
+    params:
+        blast_options = config["blast"]["OPTIONS"],
+        blast_db = config["general_informations"]["DATABASE_ADENO"]
+    shell:
+        'blastn -db {params.blast_db} {params.blast_options} -query {input} > {output} | tee -a {log}'
+ 

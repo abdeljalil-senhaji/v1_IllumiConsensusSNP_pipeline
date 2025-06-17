@@ -1,0 +1,15 @@
+rule bcftools_consensus:
+    input:
+        vcf = "{prefix}/{sample}/{ref_id}/{sample}_VS.vcf.gz",
+        index = "{prefix}/{sample}/{ref_id}/{sample}_VS.vcf.gz.tbi",
+        coverage_col = "{prefix}/{sample}/{ref_id}/{sample}_extractline.bed",
+        ref = "{prefix}/{sample}/{ref_id}/{ref_id}.fasta"
+    output:
+        "{prefix}/{sample}/{ref_id}/{sample}_{ref_id}_consensus.fasta"
+    log:
+        "{prefix}/{sample}/{ref_id}/logs/{sample}_bcftools_consensus.log"
+    run:
+        shell("bcftools consensus -f {input.ref} -m {input.coverage_col} {input.vcf} > {output} || true")
+        shell('sed -i "s/`grep \> {output}`/\>{wildcards.sample}/g" {output}')
+        #shell("bcftools consensus -f {input.ref}  {input.vcf} > {output} || true")
+        #shell('sed -i "s/`grep \> {output}`/\>{wildcards.sample}/g" {output}')

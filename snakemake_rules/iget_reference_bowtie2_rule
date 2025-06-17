@@ -1,0 +1,16 @@
+rule iget_reference_bowtie2:
+        output:
+                fa = temp("{prefix}/{sample}/{ref_id}/{ref_id}.fasta"),
+                fai = temp("{prefix}/{sample}/{ref_id}/{ref_id}.fasta.fai"),
+                bt1 = temp("{prefix}/{sample}/{ref_id}/{ref_id}.1.bt2"),
+                bt2 = temp("{prefix}/{sample}/{ref_id}/{ref_id}.2.bt2"),
+                bt3 = temp("{prefix}/{sample}/{ref_id}/{ref_id}.3.bt2"),
+                bt4 = temp("{prefix}/{sample}/{ref_id}/{ref_id}.4.bt2"),
+                bt5 = temp("{prefix}/{sample}/{ref_id}/{ref_id}.rev.1.bt2"),
+                bt6 = temp("{prefix}/{sample}/{ref_id}/{ref_id}.rev.2.bt2")		
+        log:
+                "{prefix}/{sample}/{ref_id}/{ref_id}_iget_reference.log"
+        params:
+                input_ref = config["general_path"]["REF_DATA"]
+        shell:
+                'cp {params.input_ref}/{wildcards.ref_id}.fasta {output.fa} && cp {params.input_ref}/{wildcards.ref_id}.fasta.fai {output.fai} && cp {params.input_ref}/{wildcards.ref_id}.1.bt2 {output.bt1} && cp {params.input_ref}/{wildcards.ref_id}.2.bt2 {output.bt2} && cp {params.input_ref}/{wildcards.ref_id}.3.bt2 {output.bt3} && cp {params.input_ref}/{wildcards.ref_id}.4.bt2 {output.bt4} && cp {params.input_ref}/{wildcards.ref_id}.rev.1.bt2 {output.bt5} && cp {params.input_ref}/{wildcards.ref_id}.rev.2.bt2 {output.bt6}'

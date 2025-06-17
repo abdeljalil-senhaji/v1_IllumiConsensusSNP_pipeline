@@ -1,0 +1,146 @@
+{
+    "description": "This config file is designed to run pipeline.",
+    "author": "ABDELJALIL",
+    "general_path": {
+        "INPUT_PATH": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/data",
+        "OUTPUT_PATH": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/output",
+        "RULE_PATH": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/snakemake_rules",
+        "REF_DATA": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/HADVref",
+        "REF_DATA2": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/db_adeno/ref_indexation_data"
+    },
+    "general_informations": {
+        "HTML_TEMPLATES": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/template",
+        "SCRIPT": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/report_html.py",
+        "DATABASE_ADENO": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/db_adeno/DB_Adeno_91.fna",
+        "PIPELINE": "",
+        "USER": "",
+        "MAIL": "",
+        "ID_OPERATION": "",
+        "ID_PIPELINE": "",
+        "TEAM_ID": "",
+        "GENOME_VERSION": "",
+        "GENOME_ID": "",
+        "PROJECT_NAME": "",
+        "HOSPIT": "SLS",
+        "PANEL_NAME": "",
+        "PANEL_ID": "",
+        "ANALYSIS_NAME": "Adenovirus_7ref",
+        "SEQUENCER": "",
+        "TARGET_TYPE": "",
+        "ADAPTERS": "",
+        "INSERT_SIZE": "",
+        "READ_LENGTH": "",
+        "REFERENCE_NAME": "",
+        "REFERENCE_DATE": ""
+    },
+    "iget_samples":{
+        "OPTIONS": ""
+    },
+    "trimmomatic": {
+        "OPTIONS": "PE -threads 3",
+        "PARAMS": "SLIDINGWINDOW:4:2"
+    },
+    "fastq_to_fasta": {
+        "OPTIONS": "",
+    },
+    "fastqc": {
+        "OPTIONS": ""
+    },
+    "multiqc": {
+        "OPTIONS": ""
+    },
+    "samtools_flagstat": {
+        "OPTIONS": ""
+    },
+    "samtools_stats": {
+        "OPTIONS": ""
+    },
+    "iget_reference_bowtie2": {
+        "OPTIONS": ""
+    },
+    "iget_location": {
+        "OPTIONS": ""
+    },
+    "bwa_mem": {
+        "OPTIONS": "-t 8"
+    },
+    "bowtie2": {
+        "OPTIONS": "-p 8 --very-sensitive-local"
+    },
+    "pileup_sh": {
+        "OPTIONS": ""
+    },
+    "samtools_sam_to_bam": {
+         "OPTIONS": ""
+    },
+    "samtools_sort": {
+        "OPTIONS": ""
+    },
+    "markduplicates": {
+        "OPTIONS": ""
+    },
+    "samtools_index": {
+       "OPTIONS": ""
+    },
+    "addorreplacereadgroups": {
+        "OPTIONS": ""
+    },
+    "createsequencedictionnary1": {
+        "OPTIONS": ""
+    },
+    "realignertargetcreator": {
+        "OPTIONS": "-nt 8 -filterNoBases"
+    },
+    "indelrealigner": {
+        "OPTIONS": "-filterNoBases"
+    },
+    "samtools_mpileup": {
+        "OPTIONS": ""
+    },
+    "varscan": {
+        "OPTIONS": "--min-coverage 5 --min-var-freq 0.8 --variants --output-vcf 1",
+        "VERSION": "VarScan.v2.4.3"
+    },
+    "bgzip": {
+            "OPTIONS": ""
+    },
+    "tabix": {
+        "OPTIONS": ""
+    },
+    "bedtools_genomecov": {
+        "OPTIONS": ""
+    },
+    "extractline": {
+        "OPTIONS": ""
+    },
+    "bcftools_consensus": {
+        "OPTIONS": ""
+    },
+    "bwa_index": {
+        "OPTIONS": ""
+    },
+    "createsequencedictionnary": {
+        "OPTIONS": ""
+    },
+    "samtools_faidx": {
+        "OPTIONS": ""
+    },
+    "spades": {
+        "OPTIONS": "-t 8 --careful"
+    },
+    "filter_contigs":{
+        "OPTIONS": "-m 200"
+    },
+    "blast": {
+        "OPTIONS": "-task megablast -num_threads 8 -evalue 10e-50 -outfmt \"6 qseqid sseqid sstart send evalue bitscore slen\" -max_target_seqs 1 -max_hsps 1"
+    },
+    "extract_ref_ids_from_blast": {
+        "OPTIONS": ""
+    },
+    "bowtie2_align_from_ref_ids" : {
+        "OPTIONS": "-p 8 --very-sensitive-local"
+    },
+    "report_html_v2": {
+        "OPTIONS": ""
+    }
+}

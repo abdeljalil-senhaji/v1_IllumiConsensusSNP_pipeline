@@ -1,0 +1,13 @@
+rule bedtools_genomecov:
+    input:
+        "{prefix}/{sample}/{ref_id}/{sample}_sorted.bam"
+    output:
+        "{prefix}/{sample}/{ref_id}/{sample}_genomecov.bed"
+    log:
+        "{prefix}/{sample}/{ref_id}/logs/{sample}_bedtools_genomecov.log"
+    params:
+        bedtools_genomecov_options = config["bedtools_genomecov"]["OPTIONS"]
+    shell:
+        "bedtools genomecov -ibam {input} -bga > {output} 2>&1 | tee -a {log}"
+
+

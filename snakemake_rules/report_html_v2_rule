@@ -1,0 +1,21 @@
+rule report_html_v2:
+    input:
+        coverage = "{prefix}/rapport_html/{sample}/HAdVrefA.{sample}.cov.txt",
+        flagstats = "{prefix}/rapport_html/{sample}/HAdVrefA.{sample}.stats.txt"
+    output:
+        report = "{prefix}/rapport_html/{sample}/report.html"
+    log:
+        log = "{prefix}/rapport_html/{sample}/logs/html_report.log"
+    params:
+        template_html = config["general_informations"]["HTML_TEMPLATES"],
+        script = config["general_informations"]["SCRIPT"]
+    shell:        
+        #'cat {input.flagstats} {input.coverage} > {output}'
+        'python3 {params.script} -i1 {input.flagstats} -i2 {input.coverage} -t {params.template_html} -o {output} 2>&1 | tee -a {log}'
+
+
+
+
+
+
+

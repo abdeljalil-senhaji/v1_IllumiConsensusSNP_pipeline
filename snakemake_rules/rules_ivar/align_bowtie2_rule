@@ -1,0 +1,12 @@
+rule align_bowtie2:
+    input:
+        fasta="{prefix}/{sample}/{sample}_contigs_200.fasta",
+        ref_genome="{ref_data_dir}/{id}.fasta"
+    output:
+        sam="{prefix}/{sample}/{id}.sam"
+    params:
+        ref_data_dir=config["ref_data_dir"]
+    shell:
+        '''
+        bowtie2 -x {params.ref_data_dir}/{input.ref_genome} -f {input.fasta} -S {output.sam} 
+        '''

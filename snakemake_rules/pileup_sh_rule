@@ -1,0 +1,9 @@
+rule pileup_sh:
+    input:
+        "{prefix}/{sample}/{ref_id}/{sample}.sam"
+    output:
+        "{prefix}/rapport_html/{sample}/{ref_id}.{sample}.cov.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_pileup_sh.log"
+    shell:
+        'docker_wrapper -c \"pileup.sh Xmx12g in={input} out={output}\" 2>&1 | tee -a {log}'

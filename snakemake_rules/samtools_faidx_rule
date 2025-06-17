@@ -1,0 +1,12 @@
+
+rule samtools_faidx:
+    input:
+        "{prefix}/{sample}/{ref_id}/{sample}_consensus.fasta"
+    output:
+        temp("{prefix}/{sample}/{ref_id}/{sample}_consensus.fasta.fai")
+    log:
+        "{prefix}/{sample}/{ref_id}/logs/{sample}_samtools_faidx.log"
+    params:
+        samtools_faidx_options = config["samtools_faidx"]["OPTIONS"]
+    run:
+        shell('docker_wrapper -c \"samtools faidx {input} \" 2>&1 | tee -a {log}')

@@ -1,0 +1,13 @@
+rule samtools_mpileup:
+    input:
+        bam = "{prefix}/{sample}/{ref_id}/{sample}_dedup_reads.bam",
+        ref = "{prefix}/{sample}/{ref_id}/{ref_id}.fasta" 
+    output:
+        "{prefix}/{sample}/{ref_id}/{sample}.pileup"
+    log:
+        "{prefix}/{sample}/{ref_id}/logs/{sample}_mpileup.log"
+    params:
+        mpileup_options = config["samtools_mpileup"]["OPTIONS"]
+    run:
+        shell('samtools mpileup {params.mpileup_options} -f {input.ref} {input.bam} -o {output} | tee -a {log}')
+

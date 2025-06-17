@@ -1,0 +1,11 @@
+rule extract_seqids:
+    input:
+        "{prefix}/{sample}/{sample}_blast.txt"
+    output:
+        "{prefix}/{sample}/{sample}_seqids.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_extract_seqids.log"
+    shell:
+        '''
+        head -n 2 {input} | awk '{{print $2}}' | sort -u > {output} | tee -a {log}
+        '''

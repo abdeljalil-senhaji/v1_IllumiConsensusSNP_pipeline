@@ -1,0 +1,13 @@
+rule extractline:
+    input:
+        "{prefix}/{sample}/{ref_id}/{sample}_genomecov.bed"
+    output:
+        temp("{prefix}/{sample}/{ref_id}/{sample}_extractline.bed")
+    log:
+        "{prefix}/{sample}/{ref_id}/logs/{sample}_extractline.log"
+    params:
+        extractline_options = config["extractline"]["OPTIONS"]
+    shell:
+        'awk \'$4 <= 5 {{print}}\' {input} > {output} 2>&1 | tee -a {log}'
+
+

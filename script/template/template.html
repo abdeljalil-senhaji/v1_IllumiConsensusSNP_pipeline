@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+ <html>
+    <head>
+        <title>Data Report</title>
+        <style>
+          table, th, td {
+             border: 1px solid black;
+             border-collapse: collapse;
+             margin: 0 auto;
+         } 
+         th, td {
+           padding: 5px;
+         }
+         th {
+            background-color: #dddddd;
+         }
+        </style>
+    </head>
+    <body>
+      <div style="display: flex; align-items: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/fr/8/81/Logo_AP-H%C3%B4pitaux_de_Paris.gif" style="float: left; width: 250px;">
+      </div>
+      <div style="margin-left: 5px;">
+            <p>Service : Virologie</p>
+      </div>
+      <h1 style="text-align: center; margin-left: 20px;">Pipeline Adeno_7ref</h1>
+      <h0 style="text-align: center; margin-left: 15px;"> *Basic results of the SNP analysis for the 7 reference adenovirus for : {{ samplename }} </h0>
+      <table style="margin: 20px auto; border: 2px solid red;">
+        <tr>
+          {% for header in headers %}
+            <th>{{ header }}</th>
+          {% endfor %}
+        </tr>
+        {% for row in data %}
+          <tr>
+            {% for value in row.values() %}
+              <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </table>
+    </body>
+ </html>
+

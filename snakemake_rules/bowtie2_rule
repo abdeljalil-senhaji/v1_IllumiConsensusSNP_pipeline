@@ -1,0 +1,20 @@
+rule bowtie2:
+    input:
+        R1 = "{prefix}/{sample}/{ref_id}/{sample}_R1_paired.fq.gz",
+        R2 = "{prefix}/{sample}/{ref_id}/{sample}_R2_paired.fq.gz",
+        fa = "{prefix}/{sample}/{ref_id}/{ref_id}.fasta",
+        bt1 = "{prefix}/{sample}/{ref_id}/{ref_id}.1.bt2",
+        bt2 = "{prefix}/{sample}/{ref_id}/{ref_id}.2.bt2",
+        bt3 = "{prefix}/{sample}/{ref_id}/{ref_id}.3.bt2",
+        bt4 = "{prefix}/{sample}/{ref_id}/{ref_id}.4.bt2",
+        bt5 = "{prefix}/{sample}/{ref_id}/{ref_id}.rev.1.bt2",
+        bt6 = "{prefix}/{sample}/{ref_id}/{ref_id}.rev.2.bt2"
+    output:
+        out = temp("{prefix}/{sample}/{ref_id}/{sample}.sam")
+    log:
+        "{prefix}/{sample}/{ref_id}/logs/{sample}.bowtie2.log"
+    params:
+        bowtie_options = config["bowtie2"]["OPTIONS"],
+        pathOutput = config["general_path"]["OUTPUT_PATH"]
+    shell:
+        'docker_wrapper -c \'bowtie2 {params.bowtie_options} -x {params.pathOutput}/{wildcards.sample}/{wildcards.ref_id}/{wildcards.ref_id} -1 {input.R1} -2 {input.R2} -S {output.out}\' 2>&1 | tee -a {log}'

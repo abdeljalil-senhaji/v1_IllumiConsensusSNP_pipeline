@@ -1,0 +1,14 @@
+rule iget_location:
+        input:
+                R1 = "{prefix}/{sample}/{sample}_R1_paired.fq.gz",
+                R2 = "{prefix}/{sample}/{sample}_R2_paired.fq.gz"
+        output:
+                tmp1 = temp("{prefix}/{sample}/{ref_id}/{sample}_R1_paired.fq.gz"),
+                tmp2 = temp("{prefix}/{sample}/{ref_id}/{sample}_R2_paired.fq.gz")
+        log:
+                "{prefix}/{sample}/{ref_id}/{sample}_iget_location.log"
+        params:
+                input_ref = config["general_path"]["REF_DATA"]
+        shell:
+                'cp {input.R1} {output.tmp1} && cp {input.R2} {output.tmp2} '
+

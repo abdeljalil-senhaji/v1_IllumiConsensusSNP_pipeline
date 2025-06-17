@@ -1,0 +1,11 @@
+rule samtools_sam_to_bam:
+    input:
+        "{prefix}/{sample}/{ref_id}/{sample}.sam"
+    output:
+        temp("{prefix}/{sample}/{ref_id}/{sample}.bam")
+    log:
+        "{prefix}/{sample}/{ref_id}/logs/{sample}_samtools_sam_to_bam.log"
+    params:
+        samtools_sam_to_bam_options = config["samtools_sam_to_bam"]["OPTIONS"]
+    run:
+        shell('docker_wrapper -c \"samtools view -S -b {input} -o {output} \" 2>&1 | tee -a {log}')

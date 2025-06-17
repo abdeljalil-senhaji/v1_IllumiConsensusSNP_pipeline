@@ -1,0 +1,13 @@
+rule extract_ref_ids_from_blast:
+    input:
+        blast_file = "{prefix}/{sample}/{sample}_blast.txt"
+    output:
+        ref = "{prefix}/{sample}/{sample}_extractBlast.txt"
+    log:
+        "{prefix}/{sample}/logs/{sample}_extract.log"
+    shell:
+        """
+        head -n 2 {input.blast_file} | \
+        awk '{{print $2}}' | \
+        sort -u > {output.ref} | tee -a {log}
+        """

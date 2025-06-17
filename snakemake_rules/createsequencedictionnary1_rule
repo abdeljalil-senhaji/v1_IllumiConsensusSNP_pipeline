@@ -1,0 +1,12 @@
+rule createsequencedictionnary1:
+        input:
+                "{prefix}/{sample}/{ref_id}/{ref_id}.fasta"
+        output:
+                temp("{prefix}/{sample}/{ref_id}/{ref_id}.dict")
+        log:
+                "{prefix}/{sample}/{ref_id}/logs/{sample}_createsequencedictionnary1.log"
+        params:
+                createsequencedictionnary1 = config["createsequencedictionnary"]["OPTIONS"]
+        shell:
+                "java -Xmx7500m -Xms7500m -XX:ParallelGCThreads=8 -XX:+AggressiveHeap -jar /usr/share/java/picard.jar CreateSequenceDictionary R={input} O={output} 2>&1 | tee -a {log}"
+

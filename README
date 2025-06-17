@@ -1,0 +1,13 @@
+#13-01-2025
+
+
+# Pipeline :
+
+
+
+- Analyse de variation genetique 
+- Gererer le genome consensus
+- Genere le genome assemblage (Spades) aprer l etape de trimming
+- genere un rapport d'info sur l'alignement sur les differents genome de ref adeno (genotype)
+
+

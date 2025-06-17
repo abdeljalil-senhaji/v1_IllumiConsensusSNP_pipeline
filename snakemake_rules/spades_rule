@@ -1,0 +1,16 @@
+rule spades:
+    input:
+        R1 = "{prefix}/{sample}/{sample}_R1_paired.fq.gz",
+        R2 = "{prefix}/{sample}/{sample}_R2_paired.fq.gz"
+    output:
+        "{prefix}/{sample}/{sample}_contigs.fasta"
+    log:
+        "{prefix}/{sample}/logs/{sample}.spades.log"
+    params:
+        spades_options = config["spades"]["OPTIONS"]
+    shell:
+        """
+        spades {params.spades_options} -1 {input.R1} -2 {input.R2} -o {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_spades 2>&1 | tee -a {log} &&
+        cp {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_spades/contigs.fasta {output}  &&
+        rm -rf {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_spades
+        """

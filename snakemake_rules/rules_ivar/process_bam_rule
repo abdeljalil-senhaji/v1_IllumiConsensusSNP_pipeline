@@ -1,0 +1,13 @@
+rule process_bam:
+    input:
+        sam="{prefix}/{sample}/{id}.sam"
+    output:
+        bam="{prefix}/{sample}/{id}.bam",
+        sorted_bam="{prefix}/{sample}/{id}_sorted.bam"
+    shell:
+        '''
+        samtools view -bS {input.sam} > {output.bam}
+        samtools sort -o {output.sorted_bam} {output.bam}
+        samtools index {output.sorted_bam}
+        rm {input.sam} {output.bam}
+        '''

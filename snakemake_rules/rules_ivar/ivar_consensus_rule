@@ -1,0 +1,10 @@
+rule ivar_consensus:
+    input:
+        mpileup="{prefix}/{sample}/{id}.mpileup"
+    output:
+        consensus="{prefix}/{sample}/{id}_consensus.fa"
+    shell:
+        '''
+        ivar consensus -p {output.consensus} -t 0 -q 10 -m 1 {input.mpileup}
+        rm {output.consensus}.qual.txt
+        '''

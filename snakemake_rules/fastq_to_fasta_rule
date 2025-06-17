@@ -1,0 +1,13 @@
+rule fastq_to_fasta:
+    input:
+        r1 = "{prefix}/{sample}/{sample}_R1_paired.fq.gz",
+        r2 = "{prefix}/{sample}/{sample}_R2_paired.fq.gz"
+    output:
+        fasta = "{prefix}/{sample}/{sample}_reads.fasta"
+    log:
+        "{prefix}/{sample}/logs/{sample}_fastq_to_fasta.log"
+    shell:
+        """
+        zcat {input.r1} {input.r2} | \
+        seqkit fq2fa  >> {output.fasta} | tee -a {log}
+        """

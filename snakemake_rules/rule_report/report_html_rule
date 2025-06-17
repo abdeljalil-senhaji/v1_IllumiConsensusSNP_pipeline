@@ -1,0 +1,39 @@
+
+workdir: config["general_path"]["OUTPUT_PATH"]
+input_path = config["general_path"]["INPUT_PATH"]
+output_path = config["general_path"]["OUTPUT_PATH"]
+
+
+sample_ids = []
+sampleName=glob.glob("/scratch/recherche/asenhaji/v4.1_pipe_adeno_7ref_bowtie2/data/*.fastq.gz")
+for name in sampleName:
+    path = input_path + "/"
+    name = name.replace(path, '')
+    a = re.split('/', name)
+    name = a[0]
+    name = name.replace('_R1_001.fastq.gz', '')
+    name = name.replace('_R2_001.fastq.gz', '')
+    sample_ids.append(name)
+
+
+ref_ids = ["HAdVrefA",  "HAdVrefB",  "HAdVrefC", "HAdVrefD", "HAdVrefE", "HAdVrefF", "HAdVrefG"]
+
+
+rule report_html:
+    input:
+        #coverage = "{prefix}/rapport_html/{sample}/{ref_id}.{sample}.cov.txt",
+        #flagstats = "{prefix}/rapport_html/{sample}/{ref_id}.{sample}.stats.txt",
+        coverage = expand(output_path+"/rapport_html/{sample}/{ref_id}.{sample}.cov.txt", sample = sample_ids, ref_id = ref_ids),
+        flagstats = expand(output_path+"/rapport_html/{sample}/{ref_id}.{sample}.stats.txt", sample = sample_ids, ref_id = ref_ids)       
+    output:
+        report = "{prefix}/rapport_html/{sample}/{sample}.report.html"
+        #report = expand(output_path+"/rapport_html/{sample}/{sample}.report.html", sample = sample_ids)
+    log:
+        "{prefix}/rapport_html/{sample}/logs/{sample}_html_report.log"
+        #expand(output_path+"/{sample}/logs/{sample}_html_report.log", sample = sample_ids)
+    params: 
+        template_html =  config["general_informations"]["HTML_TEMPLATES"],
+        script = config["general_informations"]["SCRIPT"]
+    shell:
+        '{params.script} -i1 {input.flagstats} -i2 {input.coverage} -t {params.template_html} -o {output}'
+
