@@ -11,8 +11,18 @@ rule bowtie2_align_from_ref_ids:
         ref_dir = config["general_path"]["REF_DATA2"],
         bowtie_options = config["bowtie2_align_from_ref_ids"]["OPTIONS"]
     shell:
+        # """
+        # while read ref_all; do
+        #     bowtie2 -x {params.ref_dir}/$ref_all -1 {input.R1} -2 {input.R2} {params.bowtie_options} -S {output.sam} >> {log} 2>&1
+        # done < {input.ref}
+        # """
         """
-        while read ref_all; do
-            bowtie2 -x {params.ref_dir}/$ref_all -1 {input.R1} -2 {input.R2} {params.bowtie_options} -S {output.sam} >> {log} 2>&1
-        done < {input.ref}
+        # Ne lance Bowtie2 QUE si la ref est présente dans le fichier extractBlast.txt
+        grep -Fxq "{wildcards.ref_all}" {input.ref_list} && \
+        bowtie2 {params.options} \\
+            -x {params.ref_dir}/{wildcards.ref_all} \\
+            -1 {input.R1} \\
+            -2 {input.R2} \\
+            -S {output.sam} \\
+            2> {log}
         """
