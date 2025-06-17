@@ -30,7 +30,7 @@
 *.temp
 *.swp
 *~
-
+./*/*fasta
 # Environnements virtuels
 /venv/
 /env/

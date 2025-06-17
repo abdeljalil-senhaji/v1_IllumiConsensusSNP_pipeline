@@ -17,9 +17,8 @@ rule bowtie2_align_from_ref_ids:
         # done < {input.ref}
         # """
         """
-        # Ne lance Bowtie2 QUE si la ref est présente dans le fichier extractBlast.txt
-        grep -Fxq "{wildcards.ref_all}" {input.ref_list} && \
-        bowtie2 {params.options} \\
+        grep -Fxq "{wildcards.ref_all}" {input.ref} && \
+        bowtie2 {params.bowtie_options} \\
             -x {params.ref_dir}/{wildcards.ref_all} \\
             -1 {input.R1} \\
             -2 {input.R2} \\
