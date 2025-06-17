@@ -1,5 +1,6 @@
 # file
 *.fastq
+*.fasta
 *.fq
 *.bam
 *.cram
