@@ -1,27 +1,14 @@
-rule bowtie2_align_from_ref_ids:
+rule run_bowtie2_on_blast_refs:
     input:
         R1 = "{prefix}/{sample}/{sample}_R1_paired.fq.gz",
         R2 = "{prefix}/{sample}/{sample}_R2_paired.fq.gz",
-        ref = "{prefix}/{sample}/{sample}_extractBlast.txt"
+        blast = "{prefix}/{sample}/{sample}_blast.txt"
     output:
-        sam = "{prefix}/{sample}/{sample}_{ref_all}.sam"
+        sam = "{prefix}/{sample}/bowtie2_on_blast"
     log:
-        "{prefix}/{sample}/logs/{sample}_{ref_all}_bowtie2.log"
+        "{prefix}/{sample}/logs/{sample}_bowtie2_on_blast.log"
     params:
         ref_dir = config["general_path"]["REF_DATA2"],
-        bowtie_options = config["bowtie2_align_from_ref_ids"]["OPTIONS"]
+        script = config["general_informations"]["script_bowtie2_on_blast"]
     shell:
-        # """
-        # while read ref_all; do
-        #     bowtie2 -x {params.ref_dir}/$ref_all -1 {input.R1} -2 {input.R2} {params.bowtie_options} -S {output.sam} >> {log} 2>&1
-        # done < {input.ref}
-        # """
-        """
-        grep -Fxq "{wildcards.ref_all}" {input.ref} && \
-        bowtie2 {params.bowtie_options} \\
-            -x {params.ref_dir}/{wildcards.ref_all} \\
-            -1 {input.R1} \\
-            -2 {input.R2} \\
-            -S {output.sam} \\
-            2> {log}
-        """
+        '{params.script} -1 {input.R1} -2 {input.R2} -b {input.blast} -db {params.ref_dir} -o {output} | tee -a {log}'

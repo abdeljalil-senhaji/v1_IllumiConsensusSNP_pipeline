@@ -11,6 +11,7 @@
     "general_informations": {
         "HTML_TEMPLATES": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/template",
         "SCRIPT": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/report_html.py",
+        "script_bowtie2_on_blast": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/",
         "DATABASE_ADENO": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/db_adeno/DB_Adeno_91.fna",
         "PIPELINE": "",
         "USER": "",

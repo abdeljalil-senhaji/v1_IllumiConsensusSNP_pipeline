@@ -97,7 +97,10 @@ with open("/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/list_re
 #extract_ref_ids_from_blast = expand((output_path+"/{sample_id}/{sample_id}_extractBlast.txt"), sample_id = sample_ids)
 
 
-bowtie2_align_from_ref_ids = expand((output_path+"/{sample_id}/{sample_id}_{ref_all_id}.sam"), sample_id = sample_ids, ref_all_id = ref_all_ids)
+#bowtie2_align_from_ref_ids = expand((output_path+"/{sample_id}/{sample_id}_{ref_all_id}.sam"), sample_id = sample_ids, ref_all_id = ref_all_ids)
+
+bowtie2_align_from_ref_ids = expand((output_path+"/{sample_id}/bowtie2.done"), sample_id = sample_ids)
+
 
 #pileup_sh = expand(output_path+"/rapport_html/{sample_id}/{ref_id}.{sample_id}.cov.txt", sample_id = sample_ids, ref_id = ref_ids),
 #samtools_flagstat = expand(output_path+"/rapport_html/{sample_id}/{ref_id}.{sample_id}.stats.txt", sample_id = sample_ids, ref_id = ref_ids),
