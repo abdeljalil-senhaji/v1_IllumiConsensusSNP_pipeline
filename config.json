@@ -6,12 +6,12 @@
         "OUTPUT_PATH": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/output",
         "RULE_PATH": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/snakemake_rules",
         "REF_DATA": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/HADVref",
-        "REF_DATA2": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/db_adeno/ref_indexation_data"
+        "REF_DATA2": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/ref_indexation_data"
     },
     "general_informations": {
         "HTML_TEMPLATES": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/template",
         "SCRIPT": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/report_html.py",
-        "script_bowtie2_on_blast": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/",
+        "script_bowtie2_on_blast": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/script/run_bowtie2_on_blast.py",
         "DATABASE_ADENO": "/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/db_adeno/DB_Adeno_91.fna",
         "PIPELINE": "",
         "USER": "",
@@ -138,8 +138,11 @@
     "extract_ref_ids_from_blast": {
         "OPTIONS": ""
     },
-    "bowtie2_align_from_ref_ids" : {
+    "run_bowtie2_on_blast_refs" : {
         "OPTIONS": "-p 8 --very-sensitive-local"
+    },
+    "samtools_process" : {
+        "OPTIONS": ""
     },
     "report_html_v2": {
         "OPTIONS": ""

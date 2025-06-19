@@ -255,12 +255,19 @@
     "mem": 2,
     "image": "sequoia-docker-tools/snakemake:3.9.0-5"
   },
-  "bowtie2_align_from_ref_ids": {
-    "name": "bowtie2_align_from_ref_ids",
-    "tags": "snakemake,bowtie2_align_from_ref_ids",
+  "run_bowtie2_on_blast_refs": {
+    "name": "run_bowtie2_on_blast_refs",
+    "tags": "snakemake,run_bowtie2_on_blast_refs",
     "cpu": 8,
     "mem": 50,
     "image": "gitlab-bioinfo.aphp.fr:5000/sequoia-docker-tools/bowtie2:2.3.0-6"
+  },
+  "samtools_process:": {
+    "name": "samtools_process:",
+    "tags": "snakemake,samtools_process:",
+    "cpu": 2,
+    "mem": 4,
+    "image": "gitlab-bioinfo.aphp.fr:5000/sequoia-docker-tools/samtools:1.9-1"
   },
   "report_html_v2": {
     "name": "report_html_v2",

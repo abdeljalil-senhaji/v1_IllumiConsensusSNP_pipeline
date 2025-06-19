@@ -1,0 +1,18 @@
+rule samtools_process:
+    input:
+        sam="{prefix}/{sample}/bowtie2_on_blast/{sample}_{ref_all}.sam"
+    output:
+        out1 = "{prefix}/{sample}/{sample}_{ref_all}.ordered.bam"
+    log:
+        "{prefix}/{sample}/logs/{sample}.samtools_process.log"
+    #params:
+        #samtools_sam_to_bam_options=config["samtools_sam_to_bam"]["OPTIONS"],
+        #samtools_sort_options=config["samtools_sort"]["OPTIONS"]
+    shell:
+        """
+        docker_wrapper -c "samtools view -b -o {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.bam {input.sam}" &&
+        docker_wrapper -c "samtools view -b -f 4 {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.bam -o {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_unmapped.bam" &&
+        docker_wrapper -c "samtools sort -n -o {output.out1}  {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_unmapped.bam " 2>&1 | tee -a {log} &&
+        rm  {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.bam &&
+        rm  {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_unmapped.bam
+        """

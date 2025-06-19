@@ -1,0 +1,26 @@
+rule run_bowtie2_on_blast_refs:
+    input:
+        R1 = "{prefix}/{sample}/{sample}_R1_paired.fq.gz",
+        R2 = "{prefix}/{sample}/{sample}_R2_paired.fq.gz",
+        blast = "{prefix}/{sample}/{sample}_blast.txt"
+    output:
+        #sam = "{prefix}/{sample}/bowtie2_on_blast/{sample}_{ref_all}.sam"
+        #directory("{prefix}/{sample}/bowtie2_on_blast")
+        dirr = "{prefix}/{sample}/bowtie2_on_blast/_SUCCESSS"
+    log:
+        "{prefix}/{sample}/logs/{sample}_bowtie2_on_blast.log"
+    params:
+        ref_dir = config["general_path"]["REF_DATA2"],
+        script = config["general_informations"]["script_bowtie2_on_blast"]
+    shell:
+        """
+        mkdir -p {wildcards.prefix}/{wildcards.sample}/bowtie2_on_blast && \
+        python {params.script} \
+            -1 {input.R1} \
+            -2 {input.R2} \
+            -b {input.blast} \
+            -db {params.ref_dir} \
+            -o {wildcards.prefix}/{wildcards.sample}/bowtie2_on_blast/ \
+            >> {log} 2>&1 && \
+        touch {output.dirr}
+        """

@@ -4,7 +4,9 @@ rule run_bowtie2_on_blast_refs:
         R2 = "{prefix}/{sample}/{sample}_R2_paired.fq.gz",
         blast = "{prefix}/{sample}/{sample}_blast.txt"
     output:
-        sam = "{prefix}/{sample}/bowtie2_on_blast"
+        #sam = "{prefix}/{sample}/{sample}_{ref_all}.sam"
+        #directory("{prefix}/{sample}/bowtie2_on_blast")
+        dir = "{prefix}/{sample}/bowtie2_on_blast/_SUCCESS"
     log:
         "{prefix}/{sample}/logs/{sample}_bowtie2_on_blast.log"
     params:
