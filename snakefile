@@ -100,7 +100,7 @@ with open("/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/list_re
 
 #run_bowtie2_on_blast_refs = expand((output_path+"/{sample_id}/bowtie2_on_blast/{sample_id}_{ref_all_id}.sam"), sample_id = sample_ids, ref_all_id = ref_all_ids)
 
-#run_bowtie2_on_blast_refs = expand((output_path+"/{sample_id}/bowtie2_on_blast/_SUCCESSS"), sample_id = sample_ids)
+#run_bowtie2_on_blast_refs = expand((output_path+"/{sample_id}/bowtie2_on_blast/.done"), sample_id = sample_ids)
 samtools_process = expand((output_path+"/{sample_id}/bowtie2_on_blast/{sample_id}_{ref_all_id}.ordered.bam"), sample_id = sample_ids, ref_all_id = ref_all_ids)
 
 #pileup_sh = expand(output_path+"/rapport_html/{sample_id}/{ref_id}.{sample_id}.cov.txt", sample_id = sample_ids, ref_id = ref_ids),

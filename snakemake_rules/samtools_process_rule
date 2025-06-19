@@ -5,9 +5,8 @@ rule samtools_process:
         out1 = "{prefix}/{sample}/{sample}_{ref_all}.ordered.bam"
     log:
         "{prefix}/{sample}/logs/{sample}.samtools_process.log"
-    #params:
-        #samtools_sam_to_bam_options=config["samtools_sam_to_bam"]["OPTIONS"],
-        #samtools_sort_options=config["samtools_sort"]["OPTIONS"]
+    params:
+        samtools_sort_options=config["samtools_process"]["OPTIONS"]
     shell:
         """
         docker_wrapper -c "samtools view -b -o {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.bam {input.sam}" &&

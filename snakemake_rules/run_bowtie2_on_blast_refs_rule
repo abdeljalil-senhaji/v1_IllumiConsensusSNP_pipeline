@@ -6,7 +6,7 @@ rule run_bowtie2_on_blast_refs:
     output:
         #sam = "{prefix}/{sample}/bowtie2_on_blast/{sample}_{ref_all}.sam"
         #directory("{prefix}/{sample}/bowtie2_on_blast")
-        dirr = "{prefix}/{sample}/bowtie2_on_blast/_SUCCESSS"
+        dirr = "{prefix}/{sample}/bowtie2_on_blast/.done"
     log:
         "{prefix}/{sample}/logs/{sample}_bowtie2_on_blast.log"
     params:
