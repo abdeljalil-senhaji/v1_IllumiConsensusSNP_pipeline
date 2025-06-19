@@ -4,14 +4,14 @@ rule samtools_process:
     output:
         out1 = "{prefix}/{sample}/bowtie2_on_blast/{sample}_{ref_all}.ordered.bam"
     log:
-        "{prefix}/{sample}/logs/{sample}.samtools_process.log"
+        "{prefix}/{sample}/logs/{sample}_{ref_all}.samtools_process.log"
     params:
         samtools_sort_options=config["samtools_process"]["OPTIONS"]
     shell:
         """
-        docker_wrapper -c "samtools view -b -o {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.bam {input.sam}" &&
-        docker_wrapper -c "samtools view -b -f 4 {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.bam -o {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_unmapped.bam" &&
-        docker_wrapper -c "samtools sort -n -o {output.out1}  {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_unmapped.bam " 2>&1 | tee -a {log} &&
-        rm  {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}.bam &&
-        rm  {wildcards.prefix}/{wildcards.sample}/{wildcards.sample}_unmapped.bam
+        docker_wrapper -c "samtools view -b -o {wildcards.prefix}/{wildcards.sample}/bowtie2_on_blast/{wildcards.sample}.bam {input.sam}" &&
+        docker_wrapper -c "samtools view -b -f 4 {wildcards.prefix}/{wildcards.sample}/bowtie2_on_blast/{wildcards.sample}.bam -o {wildcards.prefix}/{wildcards.sample}/bowtie2_on_blast/{wildcards.sample}_unmapped.bam" &&
+        docker_wrapper -c "samtools sort -n -o {output.out1}  {wildcards.prefix}/{wildcards.sample}/bowtie2_on_blast/{wildcards.sample}_unmapped.bam " 2>&1 | tee -a {log} &&
+        rm  {wildcards.prefix}/{wildcards.sample}/bowtie2_on_blast/{wildcards.sample}.bam &&
+        rm  {wildcards.prefix}/{wildcards.sample}/bowtie2_on_blast/{wildcards.sample}_unmapped.bam
         """
