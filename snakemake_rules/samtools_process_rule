@@ -2,7 +2,7 @@ rule samtools_process:
     input:
         sam="{prefix}/{sample}/bowtie2_on_blast/{sample}_{ref_all}.sam"
     output:
-        out1 = "{prefix}/{sample}/{sample}_{ref_all}.ordered.bam"
+        out1 = "{prefix}/{sample}/bowtie2_on_blast/{sample}_{ref_all}.ordered.bam"
     log:
         "{prefix}/{sample}/logs/{sample}.samtools_process.log"
     params:
