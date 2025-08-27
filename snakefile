@@ -52,7 +52,6 @@ ref_ids = ["HAdVrefA",  "HAdVrefB",  "HAdVrefC", "HAdVrefD", "HAdVrefE", "HAdVre
 with open("/scratch/recherche/asenhaji/v1_IllumiConsensusSNP_pipeline/db/list_ref.txt") as f:
     ref_all_ids = [line.strip() for line in f if line.strip()]
 
-#genome_ids = 
 
 
 #iget_samples = expand((output_path+"/{sample_id}/{sample_id}_L001_{mate_id}_001.fastq.gz"), sample_id = sample_ids, mate_id = mate_ids),
